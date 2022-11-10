@@ -1,4 +1,4 @@
-#****************************************************************************************
+#**********************************************************************************************************************
 # Script für Erzeugung von FSBL und Applikation Projekte aus .xsa datei
 # Zusammengestellt von Dmitry Eliseev auf Basis von Erklärungen hier: 
 # https://ohwr.org/project/soc-course/wikis/Xilinx-Software-Command-Line-Tool-(XSCT)#creating-a-domain-for-FSBL
@@ -23,7 +23,9 @@
 #
 # Updates:
 # Rev 1.0 		05. November 2022 - Anfangsversion 
-#****************************************************************************************
+# Rev 1.1       10. November 2022 - Parameter für den ./src Pfad hinzugefügt
+#                                 - Kopieren von den .elf Dateien (FSBL und Applikation) zum ./bootimage Verzeichnis
+#**********************************************************************************************************************
 
 set hw_xsa "design_1_wrapper.xsa"
 set platform "mvt-platform"
@@ -50,4 +52,7 @@ app build -name $fsbl_name
 app create -name $app_name -template {Empty Application} -platform $platform -domain fsbl_domain #-sysproj mvt_test_system 
 importsources -name mvt_test -path $src_path
 app build -name $app_name
+
+exec cp ./workspace/$fsbl_name/Debug/$fsbl_name.elf ./bootimage/
+exec cp ./workspace/$app_name/Debug/$app_name.elf ./bootimage/
 
