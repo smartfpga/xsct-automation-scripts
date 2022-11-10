@@ -29,6 +29,7 @@ set hw_xsa "design_1_wrapper.xsa"
 set platform "mvt-platform"
 set fsbl_name "mvt_fsbl"
 set app_name "mvt_test"
+set src_path "./src"
 
 setws ./workspace
 platform create -name $platform -hw $hw_xsa
@@ -47,6 +48,6 @@ app create -name mvt_fsbl -template {Zynq MP FSBL} -platform mvt-platform -domai
 app build -name $fsbl_name
 
 app create -name $app_name -template {Empty Application} -platform $platform -domain fsbl_domain #-sysproj mvt_test_system 
-importsources -name mvt_test -path ./src/toggle_gpio.c
+importsources -name mvt_test -path $src_path
 app build -name $app_name
 
